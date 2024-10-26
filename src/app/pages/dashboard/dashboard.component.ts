@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UploaderModule} from "@syncfusion/ej2-angular-inputs";
 import * as CryptoJS from 'crypto-js';
 import {Constant} from "../../constants";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-dashboard',
@@ -10,23 +11,25 @@ import {Constant} from "../../constants";
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
-export class DashboardComponent {
-  public dropElement?: HTMLElement;
-  descriptedName: string='';
-  ngOnInit(){
-    this.dropElement = document.getElementById('droparea') as HTMLElement;
-    const uName= localStorage.getItem('userName');
-    this.descriptedName=this.decriptData(uName)
-    console.log(this.descriptedName)
+export class DashboardComponent implements OnInit{
+  userDetails:any="";
+
+  constructor(private http:HttpClient) {
+
   }
-  decriptData(data: any){
-    const descriptVal=CryptoJS.AES.decrypt(data,Constant.EN_KEY);
-    return descriptVal.toString(CryptoJS.enc.Utf8);
+  ngOnInit() {
+    this.getUserDetails();
   }
-  public path:Object ={
-    saveUrl:'https://services.syncfusion.com/angular/production/api/FileUploader/Save',
-    removeUrl:'https://services.syncfusion.com/angular/production/api/FileUploader/Remove',
-    chunkSize: 102400
+  getUserDetails(){
+    const userId=10;
+    this.http.get(`/api/User/GetUserByUserId?userId=${userId}`).subscribe((res:any)=>
+        {this.userDetails = res
+          console.log(this.userDetails,"OKKK")
+        },error =>{
+        alert("Error from API")
+        }
+    )
   }
+
 
 }

@@ -1,0 +1,49 @@
+
+<div class='parent'>
+    <div class="container">
+        <div class="login-box">
+            <h2>Create your account</h2>
+            <form action="#">
+                <div class="input-box-container">
+                <div class="input-box">
+                    <input type="text"  name="firstName" [(ngModel)]="signUpObj.firstName">
+                    <label>First Name</label>
+                </div>
+                <div class="input-box">
+                    <input type="text"  name="lastName"  [(ngModel)]="signUpObj.lastName" >
+                    <label>Last Name</label>
+                </div>
+                </div>
+                <div class="input-box-container">
+                <div class="input-box">
+                    <input type="text"  name="city"  [(ngModel)]="signUpObj.middleName">
+                    <label>City</label>
+                </div>
+                <div class="input-box">
+                    <input type="text"  name="altMobileNo" [(ngModel)]="signUpObj.altMobileNo">
+                    <label>Postal Code</label>
+                </div>
+                </div>
+                <div class="input-box-container">
+                <div class="input-box">
+                    <input type="email"   name="emailId" required [(ngModel)]="signUpObj.emailId">
+                    <label>Email</label>
+                </div>
+                    <div class="input-box">
+                        <input type="text"   name="mobileNo" [(ngModel)]="signUpObj.mobileNo" >
+                        <label>Phone Number</label>
+                    </div>
+                </div>
+                <div class="input-box">
+                    <input type="password"   name="password" required style="width: 110%" [(ngModel)]="signUpObj.password">
+                    <label>Password</label>
+                </div>
+                <button type="submit" class="btn" (click)="onSignUp()" >Sign up</button>
+                <div class="signup-link">
+                    <h5 style="color: white">Already have an account ?</h5>
+                    <a [routerLink]="'/login'">log in </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

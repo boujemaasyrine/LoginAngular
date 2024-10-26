@@ -1,0 +1,41 @@
+.navbar {
+    background-color: #2c3e50;
+    border: none;
+}
+
+.navbar-brand {
+    color: #ecf0f1;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.navbar-nav > li > a {
+    color: #ecf0f1;
+    padding: 14px 20px;
+}
+
+.navbar-nav > li.active > a {
+    background-color: #2980b9;
+    color: #ffffff;
+}
+
+.nav > li.nav-item > a {
+    color: #ecf0f1;
+    padding: 14px 20px;
+}
+
+.nav > li.nav-item > a:hover {
+    background-color: #34495e;
+    color: #ffffff;
+}
+
+.navbar {
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+.container-fluid {
+    padding-left: 15px;
+    padding-right: 15px;
+}

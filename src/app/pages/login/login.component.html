@@ -12,13 +12,10 @@
                 <input type="password" [(ngModel)]="loginObj.Password"  name="Password" required>
                 <label>Password</label>
             </div>
-<!--            <div class="forgot-pass">-->
-<!--                <a href="#">Forgot your password?</a>-->
-<!--            </div>-->
             <button type="submit" class="btn" (click)="onLogin()">Login</button>
-<!--            <div class="signup-link">-->
-<!--                <a href="#">Signup</a>-->
-<!--            </div>-->
+            <div class="signup-link">
+                <a [routerLink]="'/signup'">Signup</a>
+            </div>
         </form>
     </div>
     <span style="--i:0;"></span>

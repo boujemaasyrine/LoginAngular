@@ -1,42 +1,45 @@
 import { Component } from '@angular/core';
 import {FormsModule} from "@angular/forms";
-import {HttpClient} from "@angular/common/http";
 import {HttpClientModule} from "@angular/common/http";
-import {Router} from "@angular/router";
-import * as CryptoJS from 'crypto-js';
-import {Constant} from "../../constants";
+import {Router, RouterLink} from "@angular/router";
+import {UserService} from "../../services/user.service";
+import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule,HttpClientModule],
+  imports: [FormsModule, HttpClientModule, RouterLink,MatSnackBarModule ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+
   loginObj:any;
-  constructor(private http:HttpClient,private router:Router) {
+  constructor(private router:Router, private userService: UserService, private snackBar: MatSnackBar) {
     this.loginObj = new Login();
   }
-  encriptData(data:any) {
-    return CryptoJS.AES.encrypt(data,Constant.EN_KEY).toString();
-  }
   onLogin(){
-  this.http.post('/api/User/Login',this.loginObj).subscribe((res:any) =>{
+    this.userService.loginUser(this.loginObj).subscribe((res:any) =>{
     if (res.result){
-    alert("Login success");
-    const enrUserName=this.encriptData(this.loginObj.EmailId)
-      localStorage.setItem('userName',enrUserName);
-      localStorage.setItem('token', res.data.token);
+      this.snackBar.open('Login success', '', {
+        duration: 2000,
+        panelClass: ['success-snackbar'],
+      });
+    localStorage.setItem('token', res.data.token);
+      setTimeout(() => {
+        this.router.navigateByUrl('/dashboard');
+      }, 2000);
 
-    this.router.navigateByUrl('/dashboard')
   }else{
-    alert(res.message);
+      this.snackBar.open(res.message, '', {
+        duration: 2000,
+        panelClass: ['error-snackbar'],
+      });
   }
   })
   }
-
 }
+
 export class Login{
   EmailId: string;
   Password: string;
